@@ -1,6 +1,7 @@
 import 'package:flutter_web/material.dart';
 import 'package:test_web/src/AppView.dart';
 import 'package:test_web/src/SettingsTabBar.dart';
+import 'package:test_web/src/settings/ColorTab.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,7 +39,7 @@ class MyHomePage extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: [
-                        Text("Color Settings"),
+                        ColorTab(),
                         Text("Button Settings"),
                         Text("Card Settings")
                       ],
