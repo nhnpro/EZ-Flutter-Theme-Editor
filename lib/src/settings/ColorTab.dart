@@ -1,5 +1,7 @@
 import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
+import 'package:test_web/src/bloc/BlocProvider.dart';
+import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/colorPicker/block_picker.dart';
 import 'package:test_web/src/colorPicker/flutter_colorpicker.dart';
 import 'package:test_web/src/colorPicker/material_picker.dart';
@@ -29,6 +31,8 @@ class ColorTab extends StatelessWidget {
             FlatButton(
               child: Text("Color"),
               onPressed: () {
+                ThemeData data = Theme.of(context).copyWith(primaryColor: Colors.red);
+                BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {

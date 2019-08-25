@@ -1,9 +1,39 @@
 import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
+import 'package:test_web/src/bloc/BlocProvider.dart';
 
-class AppView extends StatelessWidget {
+import 'bloc/GlobalBloc.dart';
+
+class AppView extends StatefulWidget {
+
+  AppView();
+
+  @override
+  _AppViewState createState() => _AppViewState(); 
+
+}
+
+class _AppViewState extends State<AppView> {
+
+    ThemeData themeData;
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.stream.listen((dynamic data){
+      if(data != null){
+        setState(() {
+          themeData = data;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if(themeData == null){
+      themeData = Theme.of(context);
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 160),
       child: Container(
@@ -12,6 +42,7 @@ class AppView extends StatelessWidget {
         child: Column(
           children: <Widget>[
             AppBar(
+              backgroundColor: themeData.primaryColor,
               title: Text("AppBar"),
             ),
             Card(
