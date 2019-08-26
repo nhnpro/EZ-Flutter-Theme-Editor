@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_web/material.dart';
+import 'package:flutter/material.dart';
 
 import 'BlocProvider.dart';
 
@@ -27,7 +27,7 @@ class ThemeUpdateBloc implements BlocBase {
     return;
   }
 
-    @override
+  @override
   void dispose() {
     themeController.close();
   }

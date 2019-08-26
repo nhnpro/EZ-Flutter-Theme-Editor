@@ -1,8 +1,9 @@
-import 'package:flutter_web/material.dart';
+import 'package:flutter/material.dart';
 import 'package:test_web/src/AppView.dart';
 import 'package:test_web/src/SettingsTabBar.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
+import 'package:test_web/src/settings/ButtonTab.dart';
 import 'package:test_web/src/settings/ColorTab.dart';
 
 void main() => runApp(MyApp());
@@ -12,8 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GlobalBloc>(
-        bloc: GlobalBloc(),
-        child: MaterialApp(
+      bloc: GlobalBloc(),
+      child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -45,7 +46,7 @@ class MyHomePage extends StatelessWidget {
                     child: TabBarView(
                       children: [
                         ColorTab(),
-                        Text("Button Settings"),
+                        ButtonTab(),
                         Text("Card Settings")
                       ],
                     ),

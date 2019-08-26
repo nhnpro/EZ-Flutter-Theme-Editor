@@ -1,29 +1,30 @@
-import 'package:flutter_web/material.dart';
-import 'package:flutter_web/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 
 import 'bloc/GlobalBloc.dart';
 
 class AppView extends StatefulWidget {
-
   AppView();
 
   @override
-  _AppViewState createState() => _AppViewState(); 
-
+  _AppViewState createState() => _AppViewState();
 }
 
 class _AppViewState extends State<AppView> {
-
-    ThemeData themeData;
+  ThemeData themeData;
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.stream.listen((dynamic data){
-      if(data != null){
+    BlocProvider.of<GlobalBloc>(context)
+        .themeUpdateBloc
+        .stream
+        .listen((dynamic data) {
+      if (data != null) {
         setState(() {
           themeData = data;
+          print(themeData.buttonColor);
         });
       }
     });
@@ -31,7 +32,7 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    if(themeData == null){
+    if (themeData == null) {
       themeData = Theme.of(context);
     }
     return Padding(
@@ -42,7 +43,9 @@ class _AppViewState extends State<AppView> {
         child: Column(
           children: <Widget>[
             AppBar(
-              backgroundColor: themeData.primaryColor,
+              backgroundColor: themeData.appBarTheme.color,
+              brightness: themeData.appBarTheme.brightness,
+              elevation: themeData.appBarTheme.elevation,
               title: Text("AppBar"),
             ),
             Card(
@@ -69,11 +72,24 @@ class _AppViewState extends State<AppView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             RaisedButton(
+                              color: themeData.buttonColor,
+                              hoverColor: themeData.hoverColor,
+                              disabledColor: themeData.disabledColor,
+                              highlightColor: themeData.highlightColor,
+                              focusColor: themeData.focusColor,
+                              splashColor: themeData.splashColor,
                               child: Text("Active"),
                               onPressed: () {},
                             ),
                             RaisedButton(
-                                child: Text("Disabled"), onPressed: null)
+                                color: themeData.buttonColor,
+                                hoverColor: themeData.hoverColor,
+                                disabledColor: themeData.disabledColor,
+                                highlightColor: themeData.highlightColor,
+                                focusColor: themeData.focusColor,
+                                splashColor: themeData.splashColor,
+                                child: Text("Disabled"),
+                                onPressed: null)
                           ],
                         )
                       ],
