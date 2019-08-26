@@ -4,6 +4,7 @@ import 'package:test_web/src/SettingsTabBar.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/settings/ButtonTab.dart';
+import 'package:test_web/src/settings/CardTab.dart';
 import 'package:test_web/src/settings/ColorTab.dart';
 
 void main() => runApp(MyApp());
@@ -47,7 +48,7 @@ class MyHomePage extends StatelessWidget {
                       children: [
                         ColorTab(),
                         ButtonTab(),
-                        Text("Card Settings")
+                        CardTab(),
                       ],
                     ),
                   ),

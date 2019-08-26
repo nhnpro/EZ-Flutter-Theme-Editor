@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/utils/Utils.dart';
+import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class ButtonTab extends StatefulWidget {
   @override
@@ -71,107 +72,81 @@ class _ButtonTabState extends State<ButtonTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 2, child: Text("Button Color:")),
-            Expanded(
-              flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(8),
-                ),
-                style: Theme.of(context).textTheme.body1,
-                controller: btnColorController,
-              ),
-            )
-          ],
+                Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 2, child: Text("Disabled Color:")),
-            Expanded(
-              flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(8),
-                ),
-                style: Theme.of(context).textTheme.body1,
-                controller: btnDisabledColorController,
-              ),
-            )
-          ],
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("Button Color:")),
+              Expanded(flex: 3, child: ColorTextField(btnColorController))
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 2, child: Text("Hover Color:")),
-            Expanded(
-              flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(8),
-                ),
-                style: Theme.of(context).textTheme.body1,
-                controller: btnHoverColorController,
-              ),
-            )
-          ],
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("Disabled Color:")),
+              Expanded(flex: 3, child: ColorTextField(btnDisabledColorController))
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 2, child: Text("Focus Color:")),
-            Expanded(
-              flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(8),
-                ),
-                style: Theme.of(context).textTheme.body1,
-                controller: btnFocusColorController,
-              ),
-            )
-          ],
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("Hover Color:")),
+              Expanded(
+                flex: 3,
+                child: ColorTextField(btnHoverColorController),
+              )
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 2, child: Text("Splash Color:")),
-            Expanded(
-              flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(8),
-                ),
-                style: Theme.of(context).textTheme.body1,
-                controller: btnSplashColorController,
-              ),
-            )
-          ],
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("Focus Color:")),
+              Expanded(
+                flex: 3,
+                child: ColorTextField(btnFocusColorController),
+              )
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 2, child: Text("Highlight Color:")),
-            Expanded(
-              flex: 3,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(8),
-                ),
-                style: Theme.of(context).textTheme.body1,
-                controller: btnHighlightColorController,
-              ),
-            )
-          ],
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("Splash Color:")),
+              Expanded(
+                flex: 3,
+                child: ColorTextField(btnSplashColorController),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 1, child: Text("Highlight Color:")),
+              Expanded(
+                flex: 3,
+                child: ColorTextField(btnHighlightColorController),
+              )
+            ],
+          ),
         )
       ],
     );

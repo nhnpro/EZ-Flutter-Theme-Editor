@@ -24,7 +24,6 @@ class _AppViewState extends State<AppView> {
       if (data != null) {
         setState(() {
           themeData = data;
-          print(themeData.buttonColor);
         });
       }
     });
@@ -38,17 +37,26 @@ class _AppViewState extends State<AppView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 160),
       child: Container(
+        color: themeData.scaffoldBackgroundColor,
         width: 360,
         height: 640,
         child: Column(
           children: <Widget>[
             AppBar(
-              backgroundColor: themeData.appBarTheme.color,
-              brightness: themeData.appBarTheme.brightness,
-              elevation: themeData.appBarTheme.elevation,
-              title: Text("AppBar"),
+                backgroundColor: themeData.appBarTheme.color,
+                brightness: themeData.appBarTheme.brightness,
+                elevation: themeData.appBarTheme.elevation,
+                title: Text("AppBar")),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Title", style: Theme.of(context).textTheme.title),
+              ),
             ),
             Card(
+              color: themeData.cardTheme.color,
+              elevation: themeData.cardTheme.elevation,
+              shape: themeData.cardTheme.shape,
               child: Container(
                 height: 300,
                 width: 300,
