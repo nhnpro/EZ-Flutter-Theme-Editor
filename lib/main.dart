@@ -8,6 +8,7 @@ import 'package:test_web/src/settings/ButtonTab.dart';
 import 'package:test_web/src/settings/CardTab.dart';
 import 'package:test_web/src/settings/ColorTab.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
+        routes: {
+          "/home" : (context) => null
+        },
       ),
     );
   }
@@ -37,6 +41,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
+        actions: <Widget>[FlatButton(child: Text("Home"),onPressed: (){Navigator.pushNamed(context, '/home');},)],
       ),
       body: Center(
         child: Container(
