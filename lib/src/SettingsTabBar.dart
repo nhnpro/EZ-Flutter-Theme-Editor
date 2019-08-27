@@ -27,6 +27,13 @@ class SettingsTabBar extends StatelessWidget {
                   .body1
                   .copyWith(color: Colors.black)),
         ),
+        Tab(
+          child: Text("AppBar",
+              style: Theme.of(context)
+                  .textTheme
+                  .body1
+                  .copyWith(color: Colors.black)),
+        ),
       ],
     );
   }

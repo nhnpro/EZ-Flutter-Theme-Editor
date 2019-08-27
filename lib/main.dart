@@ -3,6 +3,7 @@ import 'package:test_web/src/AppView.dart';
 import 'package:test_web/src/SettingsTabBar.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
+import 'package:test_web/src/settings/AppBarTab.dart';
 import 'package:test_web/src/settings/ButtonTab.dart';
 import 'package:test_web/src/settings/CardTab.dart';
 import 'package:test_web/src/settings/ColorTab.dart';
@@ -34,29 +35,59 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          AppView(),
-          Expanded(
-            child: DefaultTabController(
-              length: 3,
-              child: Column(
-                children: [
-                  SettingsTabBar(),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        ColorTab(),
-                        ButtonTab(),
-                        CardTab(),
-                      ],
-                    ),
-                  ),
-                ],
+      appBar: AppBar(
+        backgroundColor: Colors.pink,
+      ),
+      body: Center(
+        child: Container(
+          width: 1140,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Ez Theme Editor",
+                  style:
+                      Theme.of(context).textTheme.title.copyWith(fontSize: 40),
+                  textAlign: TextAlign.left,
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    AppView(),
+                    Expanded(
+                      child: DefaultTabController(
+                        length: 4,
+                        child: Column(
+                          children: [
+                            SettingsTabBar(),
+                            Expanded(
+                              child: TabBarView(
+                                children: [
+                                  ColorTab(),
+                                  ButtonTab(),
+                                  CardTab(),
+                                  AppBarTab(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

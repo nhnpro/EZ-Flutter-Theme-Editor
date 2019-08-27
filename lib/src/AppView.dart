@@ -35,17 +35,35 @@ class _AppViewState extends State<AppView> {
       themeData = Theme.of(context);
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 160),
+      padding: const EdgeInsets.symmetric(horizontal: 80),
       child: Container(
         color: themeData.scaffoldBackgroundColor,
         width: 360,
         height: 640,
         child: Column(
           children: <Widget>[
+            Container(
+              height: 24,
+              color: Colors.white,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4, left: 16, bottom: 4),
+                    child: Text(
+                      "11:00",
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             AppBar(
                 backgroundColor: themeData.appBarTheme.color,
                 brightness: themeData.appBarTheme.brightness,
                 elevation: themeData.appBarTheme.elevation,
+                textTheme: themeData.appBarTheme.textTheme,
+                iconTheme: themeData.appBarTheme.iconTheme,
+                actionsIconTheme: themeData.appBarTheme.actionsIconTheme,
                 title: Text("AppBar")),
             Center(
               child: Padding(
@@ -57,6 +75,8 @@ class _AppViewState extends State<AppView> {
               color: themeData.cardTheme.color,
               elevation: themeData.cardTheme.elevation,
               shape: themeData.cardTheme.shape,
+              clipBehavior: themeData.cardTheme.clipBehavior,
+              margin: themeData.cardTheme.margin,
               child: Container(
                 height: 300,
                 width: 300,
@@ -71,7 +91,9 @@ class _AppViewState extends State<AppView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Divider(),
+                          child: Divider(
+                            color: themeData.dividerColor,
+                          ),
                         ),
                         Text(
                             "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."),

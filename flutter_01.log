@@ -1,0 +1,87 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run -d chrome
+
+## exception
+
+ChromeDebugException: Unexpected error from chrome devtools:
+text: Uncaught
+exception:
+  description: ReferenceError: require is not defined
+    at <anonymous>:1:1
+  type: object
+  value: null
+attempted JS eval: `require('dart_sdk').dart.getLibraries();`
+
+
+```
+#0      handleErrorIfPresent (package:dwds/src/services/chrome_proxy_service.dart:555:5)
+#1      AppInspector._getLibraryRefs (package:dwds/src/debugging/inspector.dart:539:5)
+<asynchronous suspension>
+#2      AppInspector._initialize (package:dwds/src/debugging/inspector.dart:66:36)
+<asynchronous suspension>
+#3      AppInspector.initialize (package:dwds/src/debugging/inspector.dart:101:21)
+<asynchronous suspension>
+#4      ChromeProxyService.createIsolate (package:dwds/src/services/chrome_proxy_service.dart:108:37)
+<asynchronous suspension>
+#5      DevHandler._handleConnection.<anonymous closure> (package:dwds/src/handlers/dev_handler.dart:254:15)
+<asynchronous suspension>
+#6      _rootRunUnary (dart:async/zone.dart:1132:38)
+#7      _CustomZone.runUnary (dart:async/zone.dart:1029:19)
+#8      _CustomZone.runUnaryGuarded (dart:async/zone.dart:931:7)
+#9      _BufferingStreamSubscription._sendData (dart:async/stream_impl.dart:336:11)
+#10     _DelayedData.perform (dart:async/stream_impl.dart:591:14)
+#11     _StreamImplEvents.handleNext (dart:async/stream_impl.dart:707:11)
+#12     _PendingEvents.schedule.<anonymous closure> (dart:async/stream_impl.dart:667:7)
+#13     _rootRun (dart:async/zone.dart:1120:38)
+#14     _CustomZone.run (dart:async/zone.dart:1021:19)
+#15     _CustomZone.runGuarded (dart:async/zone.dart:923:7)
+#16     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:963:23)
+#17     _rootRun (dart:async/zone.dart:1124:13)
+#18     _CustomZone.run (dart:async/zone.dart:1021:19)
+#19     _CustomZone.runGuarded (dart:async/zone.dart:923:7)
+#20     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:963:23)
+#21     _microtaskLoop (dart:async/schedule_microtask.dart:41:21)
+#22     _startMicrotaskLoop (dart:async/schedule_microtask.dart:50:5)
+#23     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:116:13)
+#24     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:173:5)
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel master, v1.9.6-pre.6, on Linux, locale de_DE.UTF-8)
+    [32m•[39m Flutter version 1.9.6-pre.6 at /home/daniel/Flutter/flutter
+    [32m•[39m Framework revision d37a38cee1 (vor 2 Tagen), 2019-08-25 10:57:54 -0700
+    [32m•[39m Engine revision deca2c0da8
+    [32m•[39m Dart version 2.5.0
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 28.0.3)
+    [32m•[39m Android SDK at /home/daniel/Android/Sdk
+    [32m•[39m Android NDK location not configured (optional; useful for native profiling support)
+    [32m•[39m Platform android-28, build-tools 28.0.3
+    [32m•[39m Java binary at: /snap/android-studio/77/android-studio/jre/bin/java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b16-5323222)
+    [32m•[39m All Android licenses accepted.
+
+[32m[✓][39m Chrome - develop for the web
+    [32m•[39m Chrome at google-chrome
+
+[32m[✓][39m Android Studio (version 3.4)
+    [32m•[39m Android Studio at /snap/android-studio/77/android-studio
+    [32m•[39m Flutter plugin version 36.0.1
+    [32m•[39m Dart plugin version 183.6270
+    [32m•[39m Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b16-5323222)
+
+[32m[✓][39m VS Code (version 1.37.1)
+    [32m•[39m VS Code at /usr/share/code
+    [32m•[39m Flutter extension version 3.3.0
+
+[32m[✓][39m Connected device (1 available)
+    [32m•[39m Chrome • chrome • web-javascript • Google Chrome 76.0.3809.100 
+
+
+[32m•[39m No issues found!
+```

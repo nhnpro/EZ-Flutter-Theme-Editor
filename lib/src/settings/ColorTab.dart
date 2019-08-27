@@ -15,10 +15,12 @@ class _ColorTabState extends State<ColorTab> {
 
   final primaryColorController = TextEditingController();
   final scaffoldColorController = TextEditingController();
+  final dividerColorController = TextEditingController();
 
   void updateTheme() {
     Color primaryColor = Theme.of(context).primaryColor;
     Color scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    Color dividerColor = Theme.of(context).dividerColor;
     if (StringUtils.isNotNullOrEmpty(primaryColorController.text)) {
       primaryColor = Color(ColorUtils.hexToInt(primaryColorController.text));
     }
@@ -26,17 +28,25 @@ class _ColorTabState extends State<ColorTab> {
       scaffoldBackgroundColor =
           Color(ColorUtils.hexToInt(scaffoldColorController.text));
     }
+    if (StringUtils.isNotNullOrEmpty(dividerColorController.text)) {
+      dividerColor = Color(ColorUtils.hexToInt(dividerColorController.text));
+    }
     ThemeData data = Theme.of(context).copyWith(
         primaryColor: primaryColor,
-        scaffoldBackgroundColor: scaffoldBackgroundColor);
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        dividerColor: dividerColor);
     BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
   }
 
-    @override
+  @override
   void initState() {
     super.initState();
+    primaryColorController.text = "#42A5F5";
     primaryColorController.addListener(updateTheme);
+    scaffoldColorController.text = "#FAFAFA";
     scaffoldColorController.addListener(updateTheme);
+    dividerColorController.text = "#E0E0E0";
+    dividerColorController.addListener(updateTheme);
   }
 
   @override
@@ -45,14 +55,15 @@ class _ColorTabState extends State<ColorTab> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
+          child: Text(
+              "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
         ),
         Padding(
           padding: EdgeInsets.only(top: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Primary Color:")),
+              Expanded(flex: 2, child: Text("Primary Color:")),
               Expanded(flex: 3, child: ColorTextField(primaryColorController))
             ],
           ),
@@ -62,8 +73,18 @@ class _ColorTabState extends State<ColorTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Scaffold Background Color:")),
+              Expanded(flex: 2, child: Text("Scaffold Background Color:")),
               Expanded(flex: 3, child: ColorTextField(scaffoldColorController))
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 2, child: Text("Divider Color:")),
+              Expanded(flex: 3, child: ColorTextField(dividerColorController))
             ],
           ),
         ),

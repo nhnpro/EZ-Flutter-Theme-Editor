@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
-import 'package:test_web/src/utils/Utils.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class ButtonTab extends StatefulWidget {
@@ -27,7 +26,7 @@ class _ButtonTabState extends State<ButtonTab> {
     Color btnSplashColor = Theme.of(context).splashColor;
     Color btnHighlightColor = Theme.of(context).highlightColor;
     if (StringUtils.isNotNullOrEmpty(btnColorController.text)) {
-      btnColor = Utils.stringToColor(btnColorController.text);
+      btnColor = Color(ColorUtils.hexToInt(btnColorController.text));
     }
     if (StringUtils.isNotNullOrEmpty(btnDisabledColorController.text)) {
       btnDisabledColor =
@@ -60,11 +59,17 @@ class _ButtonTabState extends State<ButtonTab> {
   @override
   void initState() {
     super.initState();
+    btnColorController.text = "#E0E0E0";
     btnColorController.addListener(updateTheme);
+    btnDisabledColorController.text = "#9E9E9E";
     btnDisabledColorController.addListener(updateTheme);
+    btnHoverColorController.text = "#F5F5F5";
     btnHoverColorController.addListener(updateTheme);
+    btnFocusColorController.text = "#E0E0E0";
     btnFocusColorController.addListener(updateTheme);
+    btnSplashColorController.text = "#999999";
     btnSplashColorController.addListener(updateTheme);
+    btnHighlightColorController.text = "#999999";
     btnHighlightColorController.addListener(updateTheme);
   }
 
@@ -72,16 +77,17 @@ class _ButtonTabState extends State<ButtonTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-                Padding(
+        Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
+          child: Text(
+              "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."),
         ),
         Padding(
           padding: EdgeInsets.only(top: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Button Color:")),
+              Expanded(flex: 2, child: Text("Button Color:")),
               Expanded(flex: 3, child: ColorTextField(btnColorController))
             ],
           ),
@@ -91,8 +97,9 @@ class _ButtonTabState extends State<ButtonTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Disabled Color:")),
-              Expanded(flex: 3, child: ColorTextField(btnDisabledColorController))
+              Expanded(flex: 2, child: Text("Disabled Color:")),
+              Expanded(
+                  flex: 3, child: ColorTextField(btnDisabledColorController))
             ],
           ),
         ),
@@ -101,7 +108,7 @@ class _ButtonTabState extends State<ButtonTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Hover Color:")),
+              Expanded(flex: 2, child: Text("Hover Color:")),
               Expanded(
                 flex: 3,
                 child: ColorTextField(btnHoverColorController),
@@ -114,7 +121,7 @@ class _ButtonTabState extends State<ButtonTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Focus Color:")),
+              Expanded(flex: 2, child: Text("Focus Color:")),
               Expanded(
                 flex: 3,
                 child: ColorTextField(btnFocusColorController),
@@ -127,7 +134,7 @@ class _ButtonTabState extends State<ButtonTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Splash Color:")),
+              Expanded(flex: 2, child: Text("Splash Color:")),
               Expanded(
                 flex: 3,
                 child: ColorTextField(btnSplashColorController),
@@ -140,7 +147,7 @@ class _ButtonTabState extends State<ButtonTab> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: Text("Highlight Color:")),
+              Expanded(flex: 2, child: Text("Highlight Color:")),
               Expanded(
                 flex: 3,
                 child: ColorTextField(btnHighlightColorController),
