@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
 import 'BlocProvider.dart';
 
@@ -23,6 +24,7 @@ class ThemeUpdateBloc implements BlocBase {
   /// Logic for product added to shopping cart.
   ///
   void handleThemeUpdate(ThemeData theme) {
+    GlobalConfiguration().setValue("themeData", theme);
     sink.add(theme);
     return;
   }

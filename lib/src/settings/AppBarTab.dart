@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
@@ -16,13 +17,17 @@ class _AppBarTabState extends State<AppBarTab> {
   String dropdownValue = "light";
 
   void updateTheme() {
-    Color appbarColor = Theme.of(context).appBarTheme.color;
-    double appbarElevation = Theme.of(context).appBarTheme.elevation;
-    Brightness appbarBrightness = Theme.of(context).appBarTheme.brightness;
-    TextTheme appbarTextTheme = Theme.of(context).appBarTheme.textTheme;
-    IconThemeData appbarIconTheme = Theme.of(context).appBarTheme.iconTheme;
+    ThemeData themeData = GlobalConfiguration().get("themeData");
+    if (themeData == null) {
+      themeData = Theme.of(context);
+    }
+    Color appbarColor = themeData.appBarTheme.color;
+    double appbarElevation = themeData.appBarTheme.elevation;
+    Brightness appbarBrightness = themeData.appBarTheme.brightness;
+    TextTheme appbarTextTheme = themeData.appBarTheme.textTheme;
+    IconThemeData appbarIconTheme = themeData.appBarTheme.iconTheme;
     IconThemeData appbarActionIconsTheme =
-        Theme.of(context).appBarTheme.actionsIconTheme;
+        themeData.appBarTheme.actionsIconTheme;
     if (StringUtils.isNotNullOrEmpty(appbarColorController.text)) {
       appbarColor = Color(ColorUtils.hexToInt(appbarColorController.text));
     }
@@ -42,7 +47,7 @@ class _AppBarTabState extends State<AppBarTab> {
         textTheme: appbarTextTheme,
         iconTheme: appbarIconTheme,
         actionsIconTheme: appbarActionIconsTheme);
-    ThemeData data = Theme.of(context).copyWith(appBarTheme: appbarTheme);
+    ThemeData data = themeData.copyWith(appBarTheme: appbarTheme);
     BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
   }
 

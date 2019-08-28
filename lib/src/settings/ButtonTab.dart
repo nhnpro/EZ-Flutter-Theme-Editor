@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
@@ -19,12 +20,16 @@ class _ButtonTabState extends State<ButtonTab> {
   final btnHighlightColorController = TextEditingController();
 
   void updateTheme() {
-    Color btnColor = Theme.of(context).buttonColor;
-    Color btnDisabledColor = Theme.of(context).disabledColor;
-    Color btnHoverColor = Theme.of(context).hoverColor;
-    Color btnFocusColor = Theme.of(context).focusColor;
-    Color btnSplashColor = Theme.of(context).splashColor;
-    Color btnHighlightColor = Theme.of(context).highlightColor;
+    ThemeData themeData = GlobalConfiguration().get("themeData");
+    if (themeData == null) {
+      themeData = Theme.of(context);
+    }
+    Color btnColor = themeData.buttonColor;
+    Color btnDisabledColor = themeData.disabledColor;
+    Color btnHoverColor = themeData.hoverColor;
+    Color btnFocusColor = themeData.focusColor;
+    Color btnSplashColor = themeData.splashColor;
+    Color btnHighlightColor = themeData.highlightColor;
     if (StringUtils.isNotNullOrEmpty(btnColorController.text)) {
       btnColor = Color(ColorUtils.hexToInt(btnColorController.text));
     }
@@ -46,7 +51,7 @@ class _ButtonTabState extends State<ButtonTab> {
       btnHighlightColor =
           Color(ColorUtils.hexToInt(btnHighlightColorController.text));
     }
-    ThemeData data = Theme.of(context).copyWith(
+    ThemeData data = themeData.copyWith(
         buttonColor: btnColor,
         disabledColor: btnDisabledColor,
         hoverColor: btnHoverColor,

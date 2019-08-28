@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
@@ -17,11 +18,15 @@ class _CardTabState extends State<CardTab> {
   String clipBehaviorValue = "none";
 
   void updateTheme() {
-    Color cardColor = Theme.of(context).cardColor;
-    double cardElevation = Theme.of(context).cardTheme.elevation;
-    EdgeInsetsGeometry cardMargin = Theme.of(context).cardTheme.margin;
-    ShapeBorder cardShape = Theme.of(context).cardTheme.shape;
-    Clip clipBehavior = Theme.of(context).cardTheme.clipBehavior;
+    ThemeData themeData = GlobalConfiguration().get("themeData");
+    if (themeData == null) {
+      themeData = Theme.of(context);
+    }
+    Color cardColor = themeData.cardColor;
+    double cardElevation = themeData.cardTheme.elevation;
+    EdgeInsetsGeometry cardMargin = themeData.cardTheme.margin;
+    ShapeBorder cardShape = themeData.cardTheme.shape;
+    Clip clipBehavior = themeData.cardTheme.clipBehavior;
     if (StringUtils.isNotNullOrEmpty(cardColorController.text)) {
       cardColor = Color(ColorUtils.hexToInt(cardColorController.text));
     }
@@ -52,7 +57,7 @@ class _CardTabState extends State<CardTab> {
         shape: cardShape,
         clipBehavior: clipBehavior,
         margin: cardMargin);
-    ThemeData data = Theme.of(context).copyWith(cardTheme: cardTheme);
+    ThemeData data = themeData.copyWith(cardTheme: cardTheme);
     BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
   }
 

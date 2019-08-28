@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
@@ -18,9 +19,13 @@ class _ColorTabState extends State<ColorTab> {
   final dividerColorController = TextEditingController();
 
   void updateTheme() {
-    Color primaryColor = Theme.of(context).primaryColor;
-    Color scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
-    Color dividerColor = Theme.of(context).dividerColor;
+    ThemeData themeData = GlobalConfiguration().get("themeData");
+    if (themeData == null) {
+      themeData = Theme.of(context);
+    }
+    Color primaryColor = themeData.primaryColor;
+    Color scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+    Color dividerColor = themeData.dividerColor;
     if (StringUtils.isNotNullOrEmpty(primaryColorController.text)) {
       primaryColor = Color(ColorUtils.hexToInt(primaryColorController.text));
     }
@@ -31,7 +36,7 @@ class _ColorTabState extends State<ColorTab> {
     if (StringUtils.isNotNullOrEmpty(dividerColorController.text)) {
       dividerColor = Color(ColorUtils.hexToInt(dividerColorController.text));
     }
-    ThemeData data = Theme.of(context).copyWith(
+    ThemeData data = themeData.copyWith(
         primaryColor: primaryColor,
         scaffoldBackgroundColor: scaffoldBackgroundColor,
         dividerColor: dividerColor);
