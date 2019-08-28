@@ -48,7 +48,7 @@ class _AppBarTabState extends State<AppBarTab> {
         iconTheme: appbarIconTheme,
         actionsIconTheme: appbarActionIconsTheme);
     ThemeData data = themeData.copyWith(appBarTheme: appbarTheme);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
+    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
   }
 
   @override

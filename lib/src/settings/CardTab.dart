@@ -52,23 +52,30 @@ class _CardTabState extends State<CardTab> {
     }
 
     CardTheme cardTheme = CardTheme(
-        color: cardColor,
         elevation: cardElevation,
         shape: cardShape,
         clipBehavior: clipBehavior,
         margin: cardMargin);
-    ThemeData data = themeData.copyWith(cardTheme: cardTheme);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
+    ThemeData data = themeData.copyWith(cardTheme: cardTheme, cardColor: cardColor);
+    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
   }
 
   @override
   void initState() {
     super.initState();
-    cardColorController.text = "#FFFFFF";
+    ThemeData themeData = GlobalConfiguration().get("themeData");
+    if (themeData != null) {
+      cardColorController.text =
+          "#" + themeData.cardColor.value.toRadixString(16).substring(2).toUpperCase();
+      cardElevationController.text = themeData.cardTheme.elevation.toString();
+      cardMarginController.text = themeData.cardTheme.margin.toString();
+    } else {
+      cardColorController.text = "#FFFFFF";
+      cardElevationController.text = "4";
+      cardMarginController.text = "8";
+    }
     cardColorController.addListener(updateTheme);
-    cardElevationController.text = "4";
     cardElevationController.addListener(updateTheme);
-    cardMarginController.text = "4";
     cardMarginController.addListener(updateTheme);
   }
 

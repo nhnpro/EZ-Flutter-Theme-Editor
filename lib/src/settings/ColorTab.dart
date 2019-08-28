@@ -40,7 +40,7 @@ class _ColorTabState extends State<ColorTab> {
         primaryColor: primaryColor,
         scaffoldBackgroundColor: scaffoldBackgroundColor,
         dividerColor: dividerColor);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
+    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
   }
 
   @override

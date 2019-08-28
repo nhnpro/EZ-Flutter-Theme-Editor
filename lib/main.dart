@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/AppView.dart';
 import 'package:test_web/src/SettingsBar.dart';
 import 'package:test_web/src/SettingsTabBar.dart';
@@ -9,7 +10,11 @@ import 'package:test_web/src/settings/ButtonTab.dart';
 import 'package:test_web/src/settings/CardTab.dart';
 import 'package:test_web/src/settings/ColorTab.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  GlobalConfiguration().add({"themeData" : ThemeData()});
+  print(ThemeData().toString());
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

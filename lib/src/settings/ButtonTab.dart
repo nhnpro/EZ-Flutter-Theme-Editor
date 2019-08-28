@@ -51,30 +51,42 @@ class _ButtonTabState extends State<ButtonTab> {
       btnHighlightColor =
           Color(ColorUtils.hexToInt(btnHighlightColorController.text));
     }
-    ThemeData data = themeData.copyWith(
-        buttonColor: btnColor,
+    ButtonThemeData btnTheme = ButtonThemeData(buttonColor: btnColor,
         disabledColor: btnDisabledColor,
         hoverColor: btnHoverColor,
         focusColor: btnFocusColor,
         splashColor: btnSplashColor,
         highlightColor: btnHighlightColor);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.sink.add(data);
+    ThemeData data = themeData.copyWith(
+        buttonTheme: btnTheme);
+    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
   }
 
   @override
   void initState() {
     super.initState();
-    btnColorController.text = "#E0E0E0";
+    ThemeData themeData = GlobalConfiguration().get("themeData");
+    if (themeData != null) {
+      btnColorController.text = "#" + themeData.buttonColor.value.toRadixString(16).substring(2).toUpperCase();
+      btnHighlightColorController.text = themeData.highlightColor.value.toRadixString(16).substring(2).toUpperCase();
+      btnDisabledColorController.text = themeData.disabledColor.value.toRadixString(16).substring(2).toUpperCase();
+      btnHoverColorController.text = themeData.hoverColor.value.toRadixString(16).substring(2).toUpperCase();
+      btnFocusColorController.text = themeData.focusColor.value.toRadixString(16).substring(2).toUpperCase();
+      btnSplashColorController.text = themeData.splashColor.value.toRadixString(16).substring(2).toUpperCase();
+    } else {
+      btnColorController.text = "#E0E0E0";
+      btnHighlightColorController.text = "#999999";
+      btnDisabledColorController.text = "#9E9E9E";
+      btnHoverColorController.text = "#F5F5F5";
+      btnFocusColorController.text = "#E0E0E0";
+      btnSplashColorController.text = "#999999";
+    }
+
     btnColorController.addListener(updateTheme);
-    btnDisabledColorController.text = "#9E9E9E";
     btnDisabledColorController.addListener(updateTheme);
-    btnHoverColorController.text = "#F5F5F5";
     btnHoverColorController.addListener(updateTheme);
-    btnFocusColorController.text = "#E0E0E0";
     btnFocusColorController.addListener(updateTheme);
-    btnSplashColorController.text = "#999999";
     btnSplashColorController.addListener(updateTheme);
-    btnHighlightColorController.text = "#999999";
     btnHighlightColorController.addListener(updateTheme);
   }
 

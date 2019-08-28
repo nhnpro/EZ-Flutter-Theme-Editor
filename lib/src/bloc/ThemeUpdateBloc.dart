@@ -2,35 +2,40 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'BlocProvider.dart';
 
 class ThemeUpdateBloc implements BlocBase {
   static const String TAG = "ThemeUpdateBloc";
 
-  final themeController = StreamController<ThemeData>();
-
   /// Sinks
-  Sink<ThemeData> get sink => themeController.sink;
+  Sink<ThemeData> get addition => itemAdditionController.sink;
+  final itemAdditionController = StreamController<ThemeData>();
 
   /// Streams
-  Stream<ThemeData> get stream => themeController.stream;
+  Stream<ThemeData> get stream => _cart.stream;
+  final _cart = BehaviorSubject<ThemeData>();
 
-  ShoppingCartBloc() {
-    themeController.stream.listen(handleThemeUpdate);
+  ThemeUpdateBloc() {
+    itemAdditionController.stream.listen(handleThemeUpdate);
   }
 
   ///
   /// Logic for product added to shopping cart.
   ///
   void handleThemeUpdate(ThemeData theme) {
-    GlobalConfiguration().setValue("themeData", theme);
-    sink.add(theme);
+    if(GlobalConfiguration().get("themeData") == null){
+      GlobalConfiguration().add({"themeData" : theme});
+    }else{
+      GlobalConfiguration().setValue("themeData", theme);
+    }
+    _cart.add(theme);
     return;
   }
 
   @override
   void dispose() {
-    themeController.close();
+    itemAdditionController.close();
   }
 }
