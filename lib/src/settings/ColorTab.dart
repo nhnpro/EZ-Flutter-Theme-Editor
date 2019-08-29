@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
+import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class ColorTab extends StatefulWidget {
@@ -19,13 +20,10 @@ class _ColorTabState extends State<ColorTab> {
   final dividerColorController = TextEditingController();
 
   void updateTheme() {
-    ThemeData themeData = GlobalConfiguration().get("themeData");
-    if (themeData == null) {
-      themeData = Theme.of(context);
-    }
+    EzThemeData themeData = GlobalConfiguration().get("themeData");
     Color primaryColor = themeData.primaryColor;
     Color scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
-    Color dividerColor = themeData.dividerColor;
+    //Color dividerColor = themeData.dividerColor;
     if (StringUtils.isNotNullOrEmpty(primaryColorController.text)) {
       primaryColor = Color(ColorUtils.hexToInt(primaryColorController.text));
     }
@@ -33,24 +31,40 @@ class _ColorTabState extends State<ColorTab> {
       scaffoldBackgroundColor =
           Color(ColorUtils.hexToInt(scaffoldColorController.text));
     }
-    if (StringUtils.isNotNullOrEmpty(dividerColorController.text)) {
-      dividerColor = Color(ColorUtils.hexToInt(dividerColorController.text));
-    }
-    ThemeData data = themeData.copyWith(
-        primaryColor: primaryColor,
-        scaffoldBackgroundColor: scaffoldBackgroundColor,
-        dividerColor: dividerColor);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
+    //if (StringUtils.isNotNullOrEmpty(dividerColorController.text)) {
+    //  dividerColor = Color(ColorUtils.hexToInt(dividerColorController.text));
+    //}
+    themeData.primaryColor = primaryColor;
+    themeData.scaffoldBackgroundColor = scaffoldBackgroundColor;
+    BlocProvider.of<GlobalBloc>(context)
+        .themeUpdateBloc
+        .addition
+        .add(themeData);
   }
 
   @override
   void initState() {
     super.initState();
-    primaryColorController.text = "#42A5F5";
+    EzThemeData themeData = GlobalConfiguration().get("themeData");
+
+    primaryColorController.text = "#" +
+        themeData.primaryColor.value
+            .toRadixString(16)
+            .substring(2)
+            .toUpperCase();
+    scaffoldColorController.text = "#" +
+        themeData.scaffoldBackgroundColor.value
+            .toRadixString(16)
+            .substring(2)
+            .toUpperCase();
+    //dividerColorController.text = "#" +
+    //    themeData.dividerTheme.color.value
+    //        .toRadixString(16)
+    //        .substring(2)
+    //        .toUpperCase();
+    dividerColorController.text = "";
     primaryColorController.addListener(updateTheme);
-    scaffoldColorController.text = "#FAFAFA";
     scaffoldColorController.addListener(updateTheme);
-    dividerColorController.text = "#E0E0E0";
     dividerColorController.addListener(updateTheme);
   }
 

@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
+import 'package:test_web/src/model/EzCardThemeData.dart';
+import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class CardTab extends StatefulWidget {
@@ -18,15 +20,12 @@ class _CardTabState extends State<CardTab> {
   String clipBehaviorValue = "none";
 
   void updateTheme() {
-    ThemeData themeData = GlobalConfiguration().get("themeData");
-    if (themeData == null) {
-      themeData = Theme.of(context);
-    }
-    Color cardColor = themeData.cardColor;
-    double cardElevation = themeData.cardTheme.elevation;
-    EdgeInsetsGeometry cardMargin = themeData.cardTheme.margin;
-    ShapeBorder cardShape = themeData.cardTheme.shape;
-    Clip clipBehavior = themeData.cardTheme.clipBehavior;
+    EzThemeData themeData = GlobalConfiguration().get("themeData");
+    Color cardColor = themeData.cardThemeData.color;
+    double cardElevation = themeData.cardThemeData.elevation;
+    EdgeInsetsGeometry cardMargin = themeData.cardThemeData.margin;
+    ShapeBorder cardShape = themeData.cardThemeData.shape;
+    Clip clipBehavior = themeData.cardThemeData.clipBehavior;
     if (StringUtils.isNotNullOrEmpty(cardColorController.text)) {
       cardColor = Color(ColorUtils.hexToInt(cardColorController.text));
     }
@@ -51,29 +50,32 @@ class _CardTabState extends State<CardTab> {
         break;
     }
 
-    CardTheme cardTheme = CardTheme(
+    EzCardThemeData cardTheme = EzCardThemeData(
+        color: cardColor,
         elevation: cardElevation,
         shape: cardShape,
         clipBehavior: clipBehavior,
         margin: cardMargin);
-    ThemeData data = themeData.copyWith(cardTheme: cardTheme, cardColor: cardColor);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
+    themeData.cardThemeData = cardTheme;
+    BlocProvider.of<GlobalBloc>(context)
+        .themeUpdateBloc
+        .addition
+        .add(themeData);
   }
 
   @override
   void initState() {
     super.initState();
-    ThemeData themeData = GlobalConfiguration().get("themeData");
-    if (themeData != null) {
-      cardColorController.text =
-          "#" + themeData.cardColor.value.toRadixString(16).substring(2).toUpperCase();
-      cardElevationController.text = themeData.cardTheme.elevation.toString();
-      cardMarginController.text = themeData.cardTheme.margin.toString();
-    } else {
-      cardColorController.text = "#FFFFFF";
-      cardElevationController.text = "4";
-      cardMarginController.text = "8";
-    }
+    EzThemeData themeData = GlobalConfiguration().get("themeData");
+    cardColorController.text = "#" +
+        themeData.cardThemeData.color.value
+            .toRadixString(16)
+            .substring(2)
+            .toUpperCase();
+    cardElevationController.text = themeData.cardThemeData.elevation.toString();
+    cardMarginController.text =
+        (themeData.cardThemeData.margin.horizontal / 2).round().toString();
+
     cardColorController.addListener(updateTheme);
     cardElevationController.addListener(updateTheme);
     cardMarginController.addListener(updateTheme);

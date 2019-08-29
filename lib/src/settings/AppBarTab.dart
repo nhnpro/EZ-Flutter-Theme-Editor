@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
+import 'package:test_web/src/model/EzAppBarThemeData.dart';
+import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class AppBarTab extends StatefulWidget {
@@ -17,10 +19,7 @@ class _AppBarTabState extends State<AppBarTab> {
   String dropdownValue = "light";
 
   void updateTheme() {
-    ThemeData themeData = GlobalConfiguration().get("themeData");
-    if (themeData == null) {
-      themeData = Theme.of(context);
-    }
+    EzThemeData themeData = GlobalConfiguration().get("themeData");
     Color appbarColor = themeData.appBarTheme.color;
     double appbarElevation = themeData.appBarTheme.elevation;
     Brightness appbarBrightness = themeData.appBarTheme.brightness;
@@ -40,20 +39,31 @@ class _AppBarTabState extends State<AppBarTab> {
       appbarBrightness = Brightness.dark;
     }
 
-    AppBarTheme appbarTheme = AppBarTheme(
+    EzAppBarThemeData appbarTheme = EzAppBarThemeData(
         color: appbarColor,
         brightness: appbarBrightness,
         elevation: appbarElevation,
         textTheme: appbarTextTheme,
         iconTheme: appbarIconTheme,
         actionsIconTheme: appbarActionIconsTheme);
-    ThemeData data = themeData.copyWith(appBarTheme: appbarTheme);
-    BlocProvider.of<GlobalBloc>(context).themeUpdateBloc.addition.add(data);
+    themeData.appBarTheme = appbarTheme;
+    BlocProvider.of<GlobalBloc>(context)
+        .themeUpdateBloc
+        .addition
+        .add(themeData);
   }
 
   @override
   void initState() {
     super.initState();
+    EzThemeData themeData = GlobalConfiguration().get("themeData");
+
+    appbarColorController.text = "#" +
+        themeData.appBarTheme.color.value
+            .toRadixString(16)
+            .substring(2)
+            .toUpperCase();
+    appbarElevationController.text = themeData.appBarTheme.elevation.toString();
     appbarColorController.addListener(updateTheme);
     appbarElevationController.addListener(updateTheme);
   }

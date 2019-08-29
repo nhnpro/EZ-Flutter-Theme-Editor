@@ -1,9 +1,11 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 
 import 'bloc/GlobalBloc.dart';
+import 'model/EzThemeData.dart';
 
 class AppView extends StatefulWidget {
   AppView();
@@ -13,7 +15,7 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  ThemeData themeData;
+  EzThemeData themeData = GlobalConfiguration().get("themeData");
 
   @override
   void initState() {
@@ -32,11 +34,8 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    if (themeData == null) {
-      themeData = Theme.of(context);
-    }
     return Theme(
-      data: themeData,
+      data: themeData.toThemeData(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 80),
         child: Container(
@@ -54,7 +53,7 @@ class _AppViewState extends State<AppView> {
                 children: <Widget>[
                   Container(
                     height: 24,
-                    color: getStatusBarColor(themeData),
+                    color: getStatusBarColor(themeData.toThemeData()),
                     child: Row(
                       children: <Widget>[
                         Padding(
@@ -72,7 +71,8 @@ class _AppViewState extends State<AppView> {
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Title", style: themeData.textTheme.title),
+                      child: Text("Title",
+                          style: themeData.toThemeData().textTheme.title),
                     ),
                   ),
                   Card(
@@ -86,7 +86,7 @@ class _AppViewState extends State<AppView> {
                             children: <Widget>[
                               Text(
                                 "Card Title",
-                                style: themeData.textTheme.title,
+                                style: themeData.toThemeData().textTheme.title,
                               ),
                               Padding(
                                 padding:
