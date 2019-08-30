@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
+import 'package:test_web/src/model/EzColor.dart';
 import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
@@ -21,15 +22,14 @@ class _ColorTabState extends State<ColorTab> {
 
   void updateTheme() {
     EzThemeData themeData = GlobalConfiguration().get("themeData");
-    Color primaryColor = themeData.primaryColor;
-    Color scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+    EzColor primaryColor = themeData.primaryColor;
+    EzColor scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     //Color dividerColor = themeData.dividerColor;
     if (StringUtils.isNotNullOrEmpty(primaryColorController.text)) {
-      primaryColor = Color(ColorUtils.hexToInt(primaryColorController.text));
+      primaryColor = EzColor(primaryColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(scaffoldColorController.text)) {
-      scaffoldBackgroundColor =
-          Color(ColorUtils.hexToInt(scaffoldColorController.text));
+      scaffoldBackgroundColor = EzColor(scaffoldColorController.text);
     }
     //if (StringUtils.isNotNullOrEmpty(dividerColorController.text)) {
     //  dividerColor = Color(ColorUtils.hexToInt(dividerColorController.text));
@@ -47,16 +47,8 @@ class _ColorTabState extends State<ColorTab> {
     super.initState();
     EzThemeData themeData = GlobalConfiguration().get("themeData");
 
-    primaryColorController.text = "#" +
-        themeData.primaryColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
-    scaffoldColorController.text = "#" +
-        themeData.scaffoldBackgroundColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
+    primaryColorController.text = themeData.primaryColor.hex;
+    scaffoldColorController.text = themeData.scaffoldBackgroundColor.hex;
     //dividerColorController.text = "#" +
     //    themeData.dividerTheme.color.value
     //        .toRadixString(16)

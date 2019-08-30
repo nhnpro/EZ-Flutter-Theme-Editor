@@ -46,7 +46,7 @@ class _AppViewState extends State<AppView> {
           height: 656,
           child: Center(
             child: Container(
-              color: themeData.scaffoldBackgroundColor,
+              color: themeData.scaffoldBackgroundColor.toColor(),
               width: 360,
               height: 640,
               child: Column(

@@ -1,3 +1,4 @@
+import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,7 +19,9 @@ class SettingsBar extends StatelessWidget {
             ),
             RaisedButton(
               child: Text("Export Theme"),
-              onPressed: () {},
+              onPressed: () {
+                HttpUtils.getForString("https://ez-flutter.de/api/redirect");
+              },
             )
           ],
         ),

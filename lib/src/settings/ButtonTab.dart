@@ -6,6 +6,7 @@ import 'package:test_web/src/ThemeUtils.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/model/EzButtonThemeData.dart';
+import 'package:test_web/src/model/EzColor.dart';
 import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
@@ -24,32 +25,29 @@ class _ButtonTabState extends State<ButtonTab> {
 
   void updateTheme() {
     EzThemeData themeData = GlobalConfiguration().get("themeData");
-    Color btnColor = themeData.buttonThemeData.buttonColor;
-    Color btnDisabledColor = themeData.buttonThemeData.disabledColor;
-    Color btnHoverColor = themeData.buttonThemeData.hoverColor;
-    Color btnFocusColor = themeData.buttonThemeData.focusColor;
-    Color btnSplashColor = themeData.buttonThemeData.splashColor;
-    Color btnHighlightColor = themeData.buttonThemeData.highlightColor;
+    EzColor btnColor = themeData.buttonThemeData.buttonColor;
+    EzColor btnDisabledColor = themeData.buttonThemeData.disabledColor;
+    EzColor btnHoverColor = themeData.buttonThemeData.hoverColor;
+    EzColor btnFocusColor = themeData.buttonThemeData.focusColor;
+    EzColor btnSplashColor = themeData.buttonThemeData.splashColor;
+    EzColor btnHighlightColor = themeData.buttonThemeData.highlightColor;
     if (StringUtils.isNotNullOrEmpty(btnColorController.text)) {
-      btnColor = Color(ColorUtils.hexToInt(btnColorController.text));
+      btnColor = EzColor(btnColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(btnDisabledColorController.text)) {
-      btnDisabledColor =
-          Color(ColorUtils.hexToInt(btnDisabledColorController.text));
+      btnDisabledColor = EzColor(btnDisabledColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(btnHoverColorController.text)) {
-      btnHoverColor = Color(ColorUtils.hexToInt(btnHoverColorController.text));
+      btnHoverColor = EzColor(btnHoverColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(btnFocusColorController.text)) {
-      btnFocusColor = Color(ColorUtils.hexToInt(btnFocusColorController.text));
+      btnFocusColor = EzColor(btnFocusColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(btnSplashColorController.text)) {
-      btnSplashColor =
-          Color(ColorUtils.hexToInt(btnSplashColorController.text));
+      btnSplashColor = EzColor(btnSplashColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(btnHighlightColorController.text)) {
-      btnHighlightColor =
-          Color(ColorUtils.hexToInt(btnHighlightColorController.text));
+      btnHighlightColor = EzColor(btnHighlightColorController.text);
     }
 
     EzButtonThemeData btnThemeData = EzButtonThemeData(
@@ -72,36 +70,14 @@ class _ButtonTabState extends State<ButtonTab> {
     super.initState();
     EzThemeData themeData = GlobalConfiguration().get("themeData");
 
-    btnColorController.text = "#" +
-        themeData.buttonThemeData.buttonColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
-    btnHighlightColorController.text = "#" +
-        themeData.buttonThemeData.highlightColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
-    btnDisabledColorController.text = "#" +
-        themeData.buttonThemeData.disabledColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
-    btnHoverColorController.text = "#" +
-        themeData.buttonThemeData.hoverColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
-    btnFocusColorController.text = "#" +
-        themeData.buttonThemeData.focusColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
-    btnSplashColorController.text = "#" +
-        themeData.buttonThemeData.splashColor.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
+    btnColorController.text = themeData.buttonThemeData.buttonColor.hex;
+    btnHighlightColorController.text =
+        themeData.buttonThemeData.highlightColor.hex;
+    btnDisabledColorController.text =
+        themeData.buttonThemeData.disabledColor.hex;
+    btnHoverColorController.text = themeData.buttonThemeData.hoverColor.hex;
+    btnFocusColorController.text = themeData.buttonThemeData.focusColor.hex;
+    btnSplashColorController.text = themeData.buttonThemeData.splashColor.hex;
 
     btnColorController.addListener(updateTheme);
     btnDisabledColorController.addListener(updateTheme);

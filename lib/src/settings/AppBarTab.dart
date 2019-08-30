@@ -5,6 +5,8 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/model/EzAppBarThemeData.dart';
+import 'package:test_web/src/model/EzColor.dart';
+import 'package:test_web/src/model/EzIconThemeData.dart';
 import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
@@ -20,15 +22,15 @@ class _AppBarTabState extends State<AppBarTab> {
 
   void updateTheme() {
     EzThemeData themeData = GlobalConfiguration().get("themeData");
-    Color appbarColor = themeData.appBarTheme.color;
+    EzColor appbarColor = themeData.appBarTheme.color;
     double appbarElevation = themeData.appBarTheme.elevation;
     Brightness appbarBrightness = themeData.appBarTheme.brightness;
-    TextTheme appbarTextTheme = themeData.appBarTheme.textTheme;
-    IconThemeData appbarIconTheme = themeData.appBarTheme.iconTheme;
-    IconThemeData appbarActionIconsTheme =
+    //TextTheme appbarTextTheme = themeData.appBarTheme.textTheme;
+    EzIconThemeData appbarIconTheme = themeData.appBarTheme.iconTheme;
+    EzIconThemeData appbarActionIconsTheme =
         themeData.appBarTheme.actionsIconTheme;
     if (StringUtils.isNotNullOrEmpty(appbarColorController.text)) {
-      appbarColor = Color(ColorUtils.hexToInt(appbarColorController.text));
+      appbarColor = EzColor(appbarColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(appbarElevationController.text)) {
       appbarElevation = double.parse(appbarElevationController.text);
@@ -43,7 +45,7 @@ class _AppBarTabState extends State<AppBarTab> {
         color: appbarColor,
         brightness: appbarBrightness,
         elevation: appbarElevation,
-        textTheme: appbarTextTheme,
+        //textTheme: appbarTextTheme,
         iconTheme: appbarIconTheme,
         actionsIconTheme: appbarActionIconsTheme);
     themeData.appBarTheme = appbarTheme;
@@ -58,11 +60,7 @@ class _AppBarTabState extends State<AppBarTab> {
     super.initState();
     EzThemeData themeData = GlobalConfiguration().get("themeData");
 
-    appbarColorController.text = "#" +
-        themeData.appBarTheme.color.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
+    appbarColorController.text = themeData.appBarTheme.color.hex;
     appbarElevationController.text = themeData.appBarTheme.elevation.toString();
     appbarColorController.addListener(updateTheme);
     appbarElevationController.addListener(updateTheme);

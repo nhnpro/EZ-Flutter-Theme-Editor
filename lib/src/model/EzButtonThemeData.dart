@@ -1,12 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:test_web/src/model/EzColor.dart';
 
+part 'EzButtonThemeData.g.dart';
+
+@JsonSerializable()
 class EzButtonThemeData {
-  Color buttonColor;
-  Color focusColor;
-  Color highlightColor;
-  Color hoverColor;
-  Color splashColor;
-  Color disabledColor;
+  EzColor buttonColor;
+  EzColor focusColor;
+  EzColor highlightColor;
+  EzColor hoverColor;
+  EzColor splashColor;
+  EzColor disabledColor;
 
   EzButtonThemeData(
       {this.buttonColor,
@@ -15,4 +19,9 @@ class EzButtonThemeData {
       this.highlightColor,
       this.hoverColor,
       this.splashColor});
+
+  factory EzButtonThemeData.fromJson(Map<String, dynamic> json) =>
+      _$EzButtonThemeDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EzButtonThemeDataToJson(this);
 }

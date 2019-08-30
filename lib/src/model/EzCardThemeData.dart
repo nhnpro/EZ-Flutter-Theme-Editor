@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:test_web/src/model/EzColor.dart';
+import 'package:test_web/src/model/EzEdgeInsets.dart';
 
 class EzCardThemeData {
   Clip clipBehavior;
-  Color color;
+  EzColor color;
   double elevation;
-  EdgeInsetsGeometry margin;
+  EzEdgeInsets margin;
   ShapeBorder shape;
 
   EzCardThemeData(
@@ -13,9 +15,9 @@ class EzCardThemeData {
   CardTheme toCardTheme() {
     return CardTheme(
       clipBehavior: clipBehavior,
-      color: color,
+      color: color.toColor(),
       elevation: elevation,
-      margin: margin,
+      margin: margin.toEdgeInsets(),
       shape: shape,
     );
   }

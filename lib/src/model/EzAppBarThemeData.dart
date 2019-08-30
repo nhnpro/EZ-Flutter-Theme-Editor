@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:test_web/src/model/EzColor.dart';
+import 'package:test_web/src/model/EzIconThemeData.dart';
 
+part 'EzAppBarThemeData.g.dart';
+
+@JsonSerializable()
 class EzAppBarThemeData {
   Brightness brightness;
-  Color color;
+  EzColor color;
   double elevation;
-  IconThemeData actionsIconTheme;
-  IconThemeData iconTheme;
-  TextTheme textTheme;
+  EzIconThemeData actionsIconTheme;
+  EzIconThemeData iconTheme;
+  //TextTheme textTheme;
 
   EzAppBarThemeData({
     this.brightness,
@@ -14,17 +20,32 @@ class EzAppBarThemeData {
     this.elevation,
     this.actionsIconTheme,
     this.iconTheme,
-    this.textTheme,
+    //this.textTheme,
   });
 
   AppBarTheme toAppBarTheme() {
     return AppBarTheme(
-      color: color,
+      color: color.toColor(),
       elevation: elevation,
       brightness: brightness,
-      actionsIconTheme: actionsIconTheme,
-      iconTheme: iconTheme,
-      textTheme: textTheme,
+      actionsIconTheme: actionsIconTheme.toIconThemeData(),
+      iconTheme: iconTheme.toIconThemeData(),
+      //textTheme: textTheme,
     );
   }
+
+  EzAppBarThemeData.fromAppBarTheme(AppBarTheme theme) {
+    color = EzColor.fromColor(theme.color);
+    elevation = theme.elevation;
+    brightness = theme.brightness;
+    actionsIconTheme =
+        EzIconThemeData.fromIconThemeData(theme.actionsIconTheme);
+    iconTheme = EzIconThemeData.fromIconThemeData(theme.iconTheme);
+    //textTheme = theme.textTheme;
+  }
+
+  factory EzAppBarThemeData.fromJson(Map<String, dynamic> json) =>
+      _$EzAppBarThemeDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EzAppBarThemeDataToJson(this);
 }

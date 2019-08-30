@@ -5,6 +5,8 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
 import 'package:test_web/src/model/EzCardThemeData.dart';
+import 'package:test_web/src/model/EzColor.dart';
+import 'package:test_web/src/model/EzEdgeInsets.dart';
 import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
@@ -21,19 +23,19 @@ class _CardTabState extends State<CardTab> {
 
   void updateTheme() {
     EzThemeData themeData = GlobalConfiguration().get("themeData");
-    Color cardColor = themeData.cardThemeData.color;
+    EzColor cardColor = themeData.cardThemeData.color;
     double cardElevation = themeData.cardThemeData.elevation;
-    EdgeInsetsGeometry cardMargin = themeData.cardThemeData.margin;
+    EzEdgeInsets cardMargin = themeData.cardThemeData.margin;
     ShapeBorder cardShape = themeData.cardThemeData.shape;
     Clip clipBehavior = themeData.cardThemeData.clipBehavior;
     if (StringUtils.isNotNullOrEmpty(cardColorController.text)) {
-      cardColor = Color(ColorUtils.hexToInt(cardColorController.text));
+      cardColor = EzColor(cardColorController.text);
     }
     if (StringUtils.isNotNullOrEmpty(cardElevationController.text)) {
       cardElevation = double.parse(cardElevationController.text);
     }
     if (StringUtils.isNotNullOrEmpty(cardMarginController.text)) {
-      cardMargin = EdgeInsets.all(double.parse(cardMarginController.text));
+      cardMargin = EzEdgeInsets.all(double.parse(cardMarginController.text));
     }
     switch (clipBehaviorValue) {
       case "none":
@@ -67,15 +69,9 @@ class _CardTabState extends State<CardTab> {
   void initState() {
     super.initState();
     EzThemeData themeData = GlobalConfiguration().get("themeData");
-    cardColorController.text = "#" +
-        themeData.cardThemeData.color.value
-            .toRadixString(16)
-            .substring(2)
-            .toUpperCase();
+    cardColorController.text = themeData.cardThemeData.color.hex;
     cardElevationController.text = themeData.cardThemeData.elevation.toString();
-    cardMarginController.text =
-        (themeData.cardThemeData.margin.horizontal / 2).round().toString();
-
+    cardMarginController.text = themeData.cardThemeData.margin.top.toString();
     cardColorController.addListener(updateTheme);
     cardElevationController.addListener(updateTheme);
     cardMarginController.addListener(updateTheme);
