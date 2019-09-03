@@ -1,3 +1,4 @@
+import 'package:ez_flutter/ez_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/AppView.dart';
@@ -6,7 +7,6 @@ import 'package:test_web/src/SettingsTabBar.dart';
 import 'package:test_web/src/ThemeUtils.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
-import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/settings/AppBarTab.dart';
 import 'package:test_web/src/settings/ButtonTab.dart';
 import 'package:test_web/src/settings/CardTab.dart';

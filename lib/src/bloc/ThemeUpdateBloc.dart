@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:ez_flutter/ez_flutter.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:test_web/src/model/EzThemeData.dart';
 
 import 'BlocProvider.dart';
 

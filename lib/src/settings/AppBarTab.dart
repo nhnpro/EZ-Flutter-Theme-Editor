@@ -1,13 +1,10 @@
 import 'package:basic_utils/basic_utils.dart';
+import 'package:ez_flutter/ez_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
-import 'package:test_web/src/model/EzAppBarThemeData.dart';
-import 'package:test_web/src/model/EzColor.dart';
-import 'package:test_web/src/model/EzIconThemeData.dart';
-import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class AppBarTab extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:basic_utils/basic_utils.dart';
+import 'package:ez_flutter/ez_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 
 import 'bloc/GlobalBloc.dart';
-import 'model/EzThemeData.dart';
 
 class AppView extends StatefulWidget {
   AppView();

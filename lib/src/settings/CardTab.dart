@@ -1,13 +1,10 @@
 import 'package:basic_utils/basic_utils.dart';
+import 'package:ez_flutter/ez_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:test_web/src/bloc/BlocProvider.dart';
 import 'package:test_web/src/bloc/GlobalBloc.dart';
-import 'package:test_web/src/model/EzCardThemeData.dart';
-import 'package:test_web/src/model/EzColor.dart';
-import 'package:test_web/src/model/EzEdgeInsets.dart';
-import 'package:test_web/src/model/EzThemeData.dart';
 import 'package:test_web/src/widgets/ColorTextField.dart';
 
 class CardTab extends StatefulWidget {
@@ -26,7 +23,7 @@ class _CardTabState extends State<CardTab> {
     EzColor cardColor = themeData.cardThemeData.color;
     double cardElevation = themeData.cardThemeData.elevation;
     EzEdgeInsets cardMargin = themeData.cardThemeData.margin;
-    ShapeBorder cardShape = themeData.cardThemeData.shape;
+    //ShapeBorder cardShape = themeData.cardThemeData.shape;
     Clip clipBehavior = themeData.cardThemeData.clipBehavior;
     if (StringUtils.isNotNullOrEmpty(cardColorController.text)) {
       cardColor = EzColor(cardColorController.text);
@@ -55,7 +52,7 @@ class _CardTabState extends State<CardTab> {
     EzCardThemeData cardTheme = EzCardThemeData(
         color: cardColor,
         elevation: cardElevation,
-        shape: cardShape,
+        //shape: cardShape,
         clipBehavior: clipBehavior,
         margin: cardMargin);
     themeData.cardThemeData = cardTheme;
